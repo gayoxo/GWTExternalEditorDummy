@@ -33,7 +33,6 @@ public class GWTExternalDummy implements EntryPoint {
 //		try {
 			Long contLong=Long.parseLong(contextId);
 			Integer heiInteger=Integer.parseInt(Height);
-			Window.alert(contLong+ "" +heiInteger);
 			if (edit)
 				new CompositeDocumentEditionDummy(IdVentana, contLong, heiInteger, isgrammar);
 			else
