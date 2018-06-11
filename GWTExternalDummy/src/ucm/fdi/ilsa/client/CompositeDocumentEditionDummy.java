@@ -8,11 +8,12 @@ import java.util.List;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 import fdi.ucm.server.interconect.model.DocumentCompleteJSON;
 import fdi.ucm.server.interconect.model.GrammarJSON;
 import fdi.ucm.server.interconect.model.StructureJSON;
@@ -40,9 +41,12 @@ public class CompositeDocumentEditionDummy{
 	public CompositeDocumentEditionDummy(String randomIdVars, Long contextId, int Height, boolean Grammar) {
 		RandomIdVars=randomIdVars;
 		this.Heigh=Height-32;
+		
 		Width=Window.getClientWidth();
 		
 //		actualpage=0;
+		
+		
 		
 		int Variacion=75;
 		
@@ -52,43 +56,47 @@ public class CompositeDocumentEditionDummy{
 		ContextId=contextId;
 		
 		Yo=this;
-//		HasMulti=false;
+
 		
-		Panel P=getContextDiv(RandomIdVars);
-		P.clear();
+		com.google.gwt.user.client.ui.RootPanel RP=com.google.gwt.user.client.ui.RootPanel.get(RandomIdVars);
+		
 		
 		VerticalPanel VP = new VerticalPanel();
 		VP.setSpacing(20);
-		P.add(VP);
+		RP.add(VP);
 		
 		PanelPrincipal=VP;
 		
 
-		Documento=getVariableBase(RandomIdVars);
-		GWT.log(Documento.getDocumento().getId()+"");
 		
+		String SDocumentoS =getVariableBaseJSONOBJS(RandomIdVars);
 		
-		JSONObject DocumentoJ = setVariableBase2(Documento,RandomIdVars);
+//		Window.alert("hELLO Panel1 "+ SDocumentoS);
+		
+		JSONObject JSOSucion = (JSONObject) JSONParser.parseStrict(SDocumentoS);
+		
+//		Window.alert("hELLO Panel2 "+ JSOSucion.toString());
+		
 
-		JavaScriptObject DocumentoS = getVariableBaseJSONOBJ(RandomIdVars);
 		
-		String Mostar=DocumentoJ.toString();
 		
-		JSONObject JSOSucion = new JSONObject(DocumentoS);
-		JSONValue JSOSucionV = JSOSucion.get(JSOSucion.keySet().iterator().next());
-		if (JSOSucionV.isObject()!=null)
-			JSOSucion=JSOSucionV.isObject();
+		
+//		JSONValue JSOSucionV = JSOSucion.get(JSOSucion.keySet().iterator().next());
+//		if (JSOSucionV.isObject()!=null)
+//			JSOSucion=JSOSucionV.isObject();
+		
+
 		
 		String Mostar2=JSOSucion.toString();
 		
-		DocumentCompleteJSON TMP=CreateJSONObject.create(JSOSucion);
+		Documento=CreateJSONObject.create(JSOSucion);
 
-		String Mostar3=CreateJSONObject.create(TMP).toString();
+		String Mostar3=CreateJSONObject.create(Documento).toString();
 		
-		Label T = new Label();
-//		T.setSize(Width+"px", Heigh+"px");
-		T.setText(Mostar);
-		VP.add(T);
+//		Label T = new Label();
+////		T.setSize(Width+"px", Heigh+"px");
+//		T.setText(Mostar);
+//		VP.add(T);
 		
 		Label T2 = new Label();
 //		T.setSize(Width+"px", Heigh+"px");
@@ -170,20 +178,14 @@ public class CompositeDocumentEditionDummy{
 	}-*/;
 	
 	
-	public static native DocumentCompleteJSON getVariableBase(String documentID2) /*-{
-	$wnd.daletmp = '$wnd.dale = $wnd.DocExpand'+documentID2;
+	
+	public static native String getVariableBaseJSONOBJS(String documentID2) /*-{
+	$wnd.daletmp = '$wnd.dale = $wnd.JSDocExpand'+documentID2;
 eval($wnd.daletmp)
   return  $wnd.dale;	  
 
 }-*/;
 	
-	
-	public static native JavaScriptObject getVariableBaseJSONOBJ(String documentID2) /*-{
-	$wnd.daletmp = '$wnd.dale = $wnd.JDocExpand'+documentID2;
-eval($wnd.daletmp)
-  return  $wnd.dale;	  
-
-}-*/;
 	
 	public static native JavaScriptObject getVariableBaseJObj(String documentID2) /*-{
 	$wnd.daletmp = '$wnd.dale = $wnd.DocExpand'+documentID2;
@@ -197,20 +199,11 @@ eval($wnd.daletmp)
 		
 	}
 
-	public static native void setVariableBase(DocumentCompleteJSON DocumentoExpandido, String idrandomdoct) /*-{
 
-
-	$wnd.tmp=DocumentoExpandido;
-	$wnd.str = '$wnd.DocExpand'+idrandomdoct +' = $wnd.tmp';
-	console.log($wnd.str);
-	eval($wnd.str)
-
-	}-*/;
 
 //	@Override
 	public void persistJS() {
 		GWT.log(Documento.toString());
-		setVariableBase(Documento,RandomIdVars);
 		setVariableBase2(Documento,RandomIdVars);
 		
 	}
@@ -219,34 +212,22 @@ eval($wnd.daletmp)
 	private JSONObject setVariableBase2(DocumentCompleteJSON documento2, String randomIdVars2) {
 		JSONObject DocumentoJ = CreateJSONObject.create(documento2);
 //		JSONObject DocumentoJ = CreateJSONObject(documento2);
-		setVariableBase3(DocumentoJ,randomIdVars2);
+		setVariableBase3(DocumentoJ.toString(),randomIdVars2);
 		return DocumentoJ;
 		
 	}
 
 
 
-	public static native void setVariableBase3(JSONObject DocumentoExpandido, String idrandomdoct) /*-{
+	public static native void setVariableBase3(String DocumentoExpandido, String idrandomdoct) /*-{
 
 
 	$wnd.tmp=DocumentoExpandido;
-	$wnd.str = '$wnd.JDocExpand'+idrandomdoct +' = $wnd.tmp';
+	$wnd.str = '$wnd.JSDocExpand'+idrandomdoct +' = $wnd.tmp';
 	console.log($wnd.str);
 	eval($wnd.str)
 
 	}-*/;
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
