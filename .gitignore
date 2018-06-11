@@ -10,7 +10,8 @@ manifest.txt
 *.war
 *.tmp
 *.symbolMap
-*.nocache.js 
+*.nocache.js
+*.cache.js 
 *.prefs 
 */rpcPolicyManifest/manifest.txt 
 
