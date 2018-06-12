@@ -9,6 +9,9 @@ import com.google.gwt.core.client.GWT;
  */
 public class GWTExternalDummy implements EntryPoint {
 	
+	private static CompositeDocumentEditionDummy Actual;
+
+
 	static {
         export();
     }
@@ -25,6 +28,7 @@ public class GWTExternalDummy implements EntryPoint {
     	
     	$wnd.DummySetContext = @ucm.fdi.ilsa.client.GWTExternalDummy::setContext(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZZZ)
     	$wnd.DummyGetIcon = @ucm.fdi.ilsa.client.GWTExternalDummy::getIcon()
+    	$wnd.DummyPersist = @ucm.fdi.ilsa.client.GWTExternalDummy::getPersist()
     	
     }-*/;
 
@@ -33,9 +37,9 @@ public class GWTExternalDummy implements EntryPoint {
 			Long contLong=Long.parseLong(contextId);
 			Integer heiInteger=Integer.parseInt(Height);
 			if (edit)
-				new CompositeDocumentEditionDummy(IdVentana, contLong, heiInteger, isgrammar);
+				Actual=new CompositeDocumentEditionDummy(IdVentana, contLong, heiInteger, isgrammar);
 			else
-				new CompositeDocumentDescriptionDummy(IdVentana, contLong, heiInteger, CompleteView, isgrammar, views);
+				Actual=new CompositeDocumentDescriptionDummy(IdVentana, contLong, heiInteger, CompleteView, isgrammar, views);
 //		} catch (Exception e) {
 //			Window.alert(e.getMessage());
 //			Window.
@@ -47,6 +51,13 @@ public class GWTExternalDummy implements EntryPoint {
     
     public static String getIcon() {
     	return CompositeDocumentDescriptionDummy.getIcon();
+		
+		
+	}
+    
+    public static void getPersist() {
+    	if (Actual!=null)
+    		Actual.persistJS();
 		
 		
 	}
