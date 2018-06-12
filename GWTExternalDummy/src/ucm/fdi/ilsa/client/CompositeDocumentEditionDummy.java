@@ -48,9 +48,9 @@ public class CompositeDocumentEditionDummy{
 		
 		
 		
-		int Variacion=75;
+	int Variacion=315;
 		
-		if (Width>200)
+		if (Width>515)
 			Width=Width-Variacion;
 		
 		ContextId=contextId;
