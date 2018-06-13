@@ -29,6 +29,8 @@ public class GWTExternalDummy implements EntryPoint {
     	$wnd.DummySetContext = @ucm.fdi.ilsa.client.GWTExternalDummy::setContext(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZZZ)
     	$wnd.DummyGetIcon = @ucm.fdi.ilsa.client.GWTExternalDummy::getIcon()
     	$wnd.DummyPersist = @ucm.fdi.ilsa.client.GWTExternalDummy::getPersist()
+    	$wnd.DummyisWaitingUpdate = @ucm.fdi.ilsa.client.GWTExternalDummy::isWaitingUpdate()
+    	$wnd.DummyupdateContext = @ucm.fdi.ilsa.client.GWTExternalDummy::updateContext()
     	
     }-*/;
 
@@ -58,6 +60,18 @@ public class GWTExternalDummy implements EntryPoint {
     public static void getPersist() {
     	if (Actual!=null)
     		Actual.persistJS();
+		
+		
+	}
+    
+    public static boolean isWaitingUpdate() {
+    	return false;
+		
+		
+	}
+    
+    public static boolean updateContext() {
+    	return true;
 		
 		
 	}
