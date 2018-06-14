@@ -31,6 +31,7 @@ public class GWTExternalDummy implements EntryPoint {
     	$wnd.DummyPersist = @ucm.fdi.ilsa.client.GWTExternalDummy::getPersist()
     	$wnd.DummyisWaitingUpdate = @ucm.fdi.ilsa.client.GWTExternalDummy::isWaitingUpdate()
     	$wnd.DummyupdateContext = @ucm.fdi.ilsa.client.GWTExternalDummy::updateContext()
+    	$wnd.DummysetWaitingUpdate =  @ucm.fdi.ilsa.client.GWTExternalDummy::setWaitingUpdate(Z)
     	
     }-*/;
 
@@ -75,6 +76,10 @@ public class GWTExternalDummy implements EntryPoint {
 		
 		
 	}
+    
+    public static void setWaitingUpdate(boolean update) {
+    	//NOTHIG TO DO
+    }
 
 
 	@Override
